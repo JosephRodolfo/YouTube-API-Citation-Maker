@@ -1,0 +1,22 @@
+{
+  "name": "youtube-citation-generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JosephRodolfo/YouTube-Citation-Maker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JosephRodolfo/YouTube-Citation-Maker/issues"
+  },
+  "homepage": "https://github.com/JosephRodolfo/YouTube-Citation-Maker#readme",
+  "dependencies": {
+    "title-case": "^3.0.3"
+  }
+}
