@@ -171,5 +171,7 @@ function runProgram() {
       citationHolder.innerHTML =
         "Your citation is: " +
         createCitation(getStyleChoice(), urlValueSubmitted);
-    });
+    }).catch(error => {
+        console.log(error);
+      });;
 }
