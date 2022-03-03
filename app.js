@@ -7,7 +7,7 @@ let submitButton = document.getElementById("submit-button");
 submitButton.addEventListener("click", runProgram);
 //main program, runs on clicking submit
 function runProgram() {
-//retrieves choice of citation style among 3 radio buttons, returns 1, 2, or 3; 
+  //retrieves choice of citation style among 3 radio buttons, returns 1, 2, or 3;
   function getStyleChoice() {
     console.log("test");
     let choice = 0;
@@ -22,7 +22,7 @@ function runProgram() {
 
   let urlValueSubmitted = document.getElementById("url-value").value;
   let idValue = urlValueSubmitted.substring(32, 43);
-//async function that calls YouTube API
+  //async function that calls YouTube API
   fetch(
     "https://youtube.googleapis.com/youtube/v3/videos?id=" +
       idValue +
@@ -33,13 +33,8 @@ function runProgram() {
     .then((data) => {
       let youtubeObject = data.items[0].snippet;
       let runTime = data.items[0].contentDetails.duration;
-//creates the citation, returns final string to insert in HTML, takes citationStyle number from radio button and desired URL
+      //creates the citation, returns final string to insert in HTML, takes citationStyle number from radio button and desired URL
       function createCitation(citationStyle, urlValue) {
-//helper function that puts title of video into sentence case, for APA style, takes title string, returns formatted string
-        function sentenceCase(string) {
-          return string.charAt(0).toUpperCase() + string.slice(1);
-        }
-
         if (citationStyle == 1) {
           //APA 1
           let finalCitation =
@@ -90,8 +85,10 @@ function runProgram() {
           //“Grammar: Active and Passive Voice.” Purdue OWL. February 1, 2019. Video, 4:22. http://youtu.be/GEP-8lFTKKg.
         }
       }
-//Takes ISO 8601 runtime input string from YouTube API and converts and returns string to human readable time format, e.g., 6:24
-//Won't currently work for videos longer than 1 day
+
+      /*Formatting helper functions*/
+      //Helper function that takes ISO 8601 runtime input string from YouTube API and converts and returns string to human readable time format, e.g., 6:24
+      //Won't currently work for videos longer than 1 day
       function runTimeToReadable(str) {
         let arr = str.split("");
 
@@ -118,10 +115,15 @@ function runProgram() {
           return hours + ":" + minutes + ":" + seconds;
         }
       }
-//Helper function takes date string from YouTube API and selected citation style number and returns to human readable string
-//appropriate to selected citation style. 
+      //helper function that puts title of video into sentence case, for APA style, takes title string, returns formatted string
+      function sentenceCase(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+      }
+
+      //Helper function takes date string from YouTube API and selected citation style number and returns to human readable string
+      //appropriate to selected citation style.
       function dateFormat(string, selectedCitationStyle) {
-        var parsedMonth = parseInt(string.substring(5, 7), 10);
+        let parsedMonth = parseInt(string.substring(5, 7), 10);
         const monthNames = [
           "January",
           "February",
@@ -141,7 +143,7 @@ function runProgram() {
           return (
             string.substring(0, 4) + //year
             ", " +
-            monthNames[parsedMonth] + //month
+            monthNames[parsedMonth - 1] + //month
             " " +
             string.substring(8, 10) //day
           );
@@ -149,13 +151,13 @@ function runProgram() {
           return (
             string.substring(8, 10) +
             " " +
-            monthNames[parsedMonth] +
+            monthNames[parsedMonth - 1] +
             ", " +
             string.substring(0, 4)
           );
         } else if (selectedCitationStyle == 3) {
           return (
-            monthNames[parsedMonth] +
+            monthNames[parsedMonth - 1] +
             " " +
             +string.substring(8, 10) +
             ", " +
@@ -171,5 +173,3 @@ function runProgram() {
         createCitation(getStyleChoice(), urlValueSubmitted);
     });
 }
-
-
